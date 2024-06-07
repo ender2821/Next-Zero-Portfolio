@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
 
-export default defineType({
+export const imageAssets = defineType({
   name: "imageAssets",
   title: "Image Assets",
   type: "document",
@@ -9,6 +9,7 @@ export default defineType({
       name: "name",
       title: "Name",
       type: "string",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "image",
@@ -17,13 +18,7 @@ export default defineType({
       options: {
         hotspot: true,
       },
-      fields: [
-        {
-          name: "alt",
-          type: "string",
-          title: "Caption",
-        },
-      ],
+      validation: (rule) => rule.required(),
     }),
   ],
 });
