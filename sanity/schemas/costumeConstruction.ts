@@ -1,11 +1,30 @@
+import { orderRankField } from "@sanity/orderable-document-list";
 import { defineField, defineType } from "sanity";
 
 export const costumeConstruction = defineType({
   name: "costumeConstruction",
   title: "Costume Construction",
   type: "document",
-
   fields: [
+    orderRankField({ type: "costumeConstruction", newItemPosition: "before" }),
+    defineField({
+      name: "name",
+      title: "Page Name",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      validation: (rule) => rule.required(),
+      options: {
+        source: "name",
+        maxLength: 200,
+        slugify: (input) =>
+          input.toLowerCase().replace(/\s+/g, "-").slice(0, 200),
+      },
+    }),
     defineField({
       name: "heroTitle",
       title: "Hero Title",

@@ -9,8 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@portabletext/react": "^3.1.0",
     "@sanity/image-url": "^1.0.2",
+    "@sanity/orderable-document-list": "^1.2.1",
     "@sanity/vision": "^3.44.0",
+    "@types/gtag.js": "^0.0.20",
     "next": "14.2.3",
     "next-sanity": "^9.3.10",
     "react": "^18",
