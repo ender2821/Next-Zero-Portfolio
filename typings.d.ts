@@ -11,3 +11,12 @@ type Block = {
   _type: string;
   style: string;
 };
+
+type Gallery = {
+  gallery: [
+    {
+      imageUrl: string;
+      imageName: string;
+    },
+  ];
+};

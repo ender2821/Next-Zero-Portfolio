@@ -35,6 +35,16 @@ p {
   margin: 0 0 1rem 0;
 }
 
+a {
+  color: #fff;
+  transition: color 125ms ease;
+}
+
+a:hover {
+  color: #27d5e8;
+  text-decoration: underline;
+}
+
 p:empty {
   margin: 0;
 }

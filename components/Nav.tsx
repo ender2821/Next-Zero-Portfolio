@@ -72,7 +72,7 @@ export default async function Nav() {
             {costumeConstructiodData.map((item: NavItem, i: number) => (
               <li key={item?.name + i} className="[&>a]:last:pb-6">
                 <Link
-                  href={`/costumeConstruction/${item?.slug?.current}`}
+                  href={`/costume-construction/${item?.slug?.current}`}
                   className="pt-2 pr-8 pb-2 pl-8 block"
                 >
                   {item?.name}
@@ -89,7 +89,7 @@ export default async function Nav() {
             {underGradCourseWorkData.map((item: NavItem, i: number) => (
               <li key={item?.name + i} className="[&>a]:last:pb-6">
                 <Link
-                  href={`/undergradCourseWork/${item?.slug?.current}`}
+                  href={`/undergrad-course-work/${item?.slug?.current}`}
                   className="pt-2 pr-8 pb-2 pl-8 block"
                 >
                   {item?.name}
@@ -106,7 +106,7 @@ export default async function Nav() {
             {relatedWorkData.map((item: NavItem, i: number) => (
               <li key={item?.name + i} className="[&>a]:last:pb-6">
                 <Link
-                  href={`/relatedWork/${item?.slug?.current}`}
+                  href={`/related-work/${item?.slug?.current}`}
                   className="pt-2 pr-8 pb-2 pl-8 block"
                 >
                   {item?.name}
