@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
@@ -7,10 +8,15 @@ const Footer = () => {
         textAlign: "center",
         padding: "20px",
         marginTop: "20px",
-        backgroundColor: "#f0f0f0",
+        background: "rgba(0, 0, 0, 0.6)",
       }}
     >
-      © {new Date().getFullYear()} My Website. All rights reserved.
+      <p className="m-0">
+        <Link href="mailto:bruening.r86@gmail.com" className="underline">
+          bruening.r86@gmail.com
+        </Link>{" "}
+        | © {new Date().getFullYear()} Andy Bruening. All rights reserved.
+      </p>
     </footer>
   );
 };

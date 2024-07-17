@@ -33,10 +33,11 @@ type NavItem = {
 
 export default async function Nav() {
   const revalidate = 60;
-
   const costumeConstructiodData = (await client.fetch(
     costumeConstructionQuery,
+
     {
+      // @ts-ignore
       next: { revalidate: revalidate },
     }
   )) as NavItem[];
@@ -44,11 +45,13 @@ export default async function Nav() {
   const underGradCourseWorkData = (await client.fetch(
     underGradCouresWorkQuery,
     {
+      // @ts-ignore
       next: { revalidate: revalidate },
     }
   )) as NavItem[];
 
   const relatedWorkData = (await client.fetch(relatedWorkQuery, {
+    // @ts-ignore
     next: { revalidate: revalidate },
   })) as NavItem[];
 
