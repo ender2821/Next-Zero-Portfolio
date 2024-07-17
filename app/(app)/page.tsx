@@ -3,7 +3,7 @@ import { groq } from "next-sanity";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import { Noto_Serif_Display } from "next/font/google";
-import GalleryHome from "@/components/GalleryHome";
+import dynamic from "next/dynamic";
 
 const notoSerifDisplay = Noto_Serif_Display({ subsets: ["latin"] });
 
@@ -56,6 +56,16 @@ export default async function Home() {
     next: { revalidate: revalidate },
   })) as Gallery;
 
+  const HomeGallery = dynamic(() => import("@/components/GalleryHome"), {
+    ssr: false,
+  });
+
+  const frame = {
+    border: "1rem solid #27D5E8",
+    borderImage:
+      "repeating-linear-gradient(45deg, transparent, transparent 5px, #27D5E8 6px, #27D5E8 15px, transparent 16px, transparent 20px) 20/1rem",
+  };
+
   return (
     <main className="min-h-screen flex-col items-center pl-24 pt-20 pr-24 pb-24">
       <section className="grid grid-cols-3">
@@ -76,12 +86,13 @@ export default async function Home() {
               width={500}
               height={800}
               className="relative -left-[33%] top-24 shadow-[rgba(0,_0,_0,_0.3)_-20px_60px_40px_-7px]"
+              style={frame}
             />
           )}
         </div>
       </section>
       <section className="mt-8">
-        {galleryData && <GalleryHome data={galleryData?.gallery} />}
+        {galleryData && <HomeGallery data={galleryData?.gallery} />}
       </section>
     </main>
   );
