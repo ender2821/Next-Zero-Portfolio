@@ -3,6 +3,8 @@ import { groq } from "next-sanity";
 import Link from "next/link";
 import React from "react";
 
+export const dynamic = "force-dynamic";
+
 const costumeConstructionQuery = groq`
 *[_type == "costumeConstruction"]|order(orderRank){
   name,
@@ -55,7 +57,7 @@ export default async function Nav() {
   })) as NavItem[];
 
   return (
-    <nav className="w-full absolute left-0 top-0  bg-black/60">
+    <nav className="w-full absolute left-0 top-0 pl-24 pr-24 bg-black/60 z-10">
       <ul className="flex">
         <li>
           <Link href="/" className="pt-4 pr-8 pb-4 pl-8 block">

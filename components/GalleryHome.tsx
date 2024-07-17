@@ -15,5 +15,5 @@ type Data = {
 export default function GalleryHome(props: Data) {
   const isBigScreen = useMediaQuery({ query: "(min-width: 1200px)" });
 
-  return <Gallery data={props.data} columns={isBigScreen ? 3 : 5} />;
+  return <Gallery data={props.data} columns={isBigScreen ? 5 : 3} />;
 }
