@@ -93,15 +93,22 @@ export default function Gallery(props: Gallery) {
         </Box>
       </Modal>
       {data.length > 0 && (
-        <ImageList variant="masonry" cols={columns} gap={8}>
+        <ImageList
+          variant="masonry"
+          cols={columns}
+          gap={16}
+          className="!pb-12 !overflow-y-visible"
+        >
           {data.map((item, i) => (
             <ImageListItem key={i}>
-              <img
-                src={`${item?.imageUrl}?w=400&fit=crop&auto=format`}
-                alt={item?.imageName}
-                loading="lazy"
-                onClick={() => handleOpen(i)}
-              />
+              <button onClick={() => handleOpen(i)}>
+                <img
+                  src={`${item?.imageUrl}?w=400&fit=crop&auto=format`}
+                  alt={item?.imageName}
+                  loading="lazy"
+                  className="cursor-pointer hover:scale-105 focus:scale-105 transform transition-transform shadow-[rgba(0,_0,_0,_0.3)_-5px_12px_5px_-3px]"
+                />
+              </button>
             </ImageListItem>
           ))}
         </ImageList>

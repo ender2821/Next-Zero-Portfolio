@@ -4,6 +4,7 @@ import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import { Noto_Serif_Display } from "next/font/google";
 import dynamic from "next/dynamic";
+import Header from "@/components/Header";
 
 const notoSerifDisplay = Noto_Serif_Display({ subsets: ["latin"] });
 
@@ -18,7 +19,7 @@ const homeQuery = groq`
 `;
 
 const homeGalleryQuery = groq`
-*[_type == "costumeConstruction"][0]{
+*[_type == "home"][0]{
   gallery[]->{
     "imageUrl": image.asset->url,
     "imageName": name,
@@ -67,33 +68,40 @@ export default async function Home() {
   };
 
   return (
-    <main className="min-h-screen flex-col items-center pl-24 pt-20 pr-24 pb-24">
-      <section className="grid grid-cols-3">
-        <div className="bg-black/20 backdrop-blur-sm pl-12 pt-8 pr-8 pb-8 col-span-2">
-          <div className="max-w-[600px]">
-            <h1 className={`${notoSerifDisplay.className} text-6xl font-bold`}>
-              {homeData?.heroTitle}
-            </h1>
-            <h2 className="text-2xl font-semibold">{homeData?.heroSubtitle}</h2>
-            {homeData?.content && <PortableText value={homeData?.content} />}
+    <>
+      <Header />
+      <main className="min-h-screen flex-col items-center pl-24 pt-20 pr-24 pb-24">
+        <section className="grid grid-cols-3">
+          <div className="bg-black/20 backdrop-blur-sm pl-12 pt-8 pr-8 pb-8 col-span-2">
+            <div className="max-w-[600px]">
+              <h1
+                className={`${notoSerifDisplay.className} text-6xl font-bold`}
+              >
+                {homeData?.heroTitle}
+              </h1>
+              <h2 className="text-2xl font-semibold">
+                {homeData?.heroSubtitle}
+              </h2>
+              {homeData?.content && <PortableText value={homeData?.content} />}
+            </div>
           </div>
-        </div>
-        <div>
-          {homeData?.imageUrl && (
-            <Image
-              src={homeData?.imageUrl}
-              alt={homeData?.imageName ? homeData?.imageName : ""}
-              width={500}
-              height={800}
-              className="relative -left-[33%] top-24 shadow-[rgba(0,_0,_0,_0.3)_-20px_60px_40px_-7px]"
-              style={frame}
-            />
-          )}
-        </div>
-      </section>
-      <section className="mt-8">
-        {galleryData && <HomeGallery data={galleryData?.gallery} />}
-      </section>
-    </main>
+          <div>
+            {homeData?.imageUrl && (
+              <Image
+                src={homeData?.imageUrl}
+                alt={homeData?.imageName ? homeData?.imageName : ""}
+                width={500}
+                height={800}
+                className="relative -left-[33%] top-24 shadow-[rgba(0,_0,_0,_0.3)_-20px_60px_40px_-7px]"
+                style={frame}
+              />
+            )}
+          </div>
+        </section>
+        <section className="mt-8">
+          {galleryData && <HomeGallery data={galleryData?.gallery} />}
+        </section>
+      </main>
+    </>
   );
 }

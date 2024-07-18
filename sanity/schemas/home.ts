@@ -30,5 +30,19 @@ export const home = defineType({
       to: [{ type: "imageAssets" }],
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: "gallery",
+      title: "Gallery",
+      type: "array",
+      of: [
+        defineField({
+          name: "galleryImage",
+          title: "Image",
+          type: "reference",
+          to: [{ type: "imageAssets" }],
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
   ],
 });
