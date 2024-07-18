@@ -58,7 +58,7 @@ export default async function UndergradCourseWorkPage({
   return (
     <>
       <Header />
-      <main className="min-h-screen flex-col pl-24 pt-20 pr-24 pb-24 grid grid-cols-3">
+      <main className="min-h-screen flex-col pl-24 pt-20 pr-24 pb-24 grid grid-cols-3 gap-4">
         <section className="bg-black/20 backdrop-blur-sm pl-12 pt-8 pr-8 pb-8">
           <div className="max-w-[600px]">
             <h1 className={`${notoSerifDisplay.className} text-6xl font-bold`}>

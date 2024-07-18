@@ -97,7 +97,7 @@ export default function Gallery(props: Gallery) {
           variant="masonry"
           cols={columns}
           gap={16}
-          className="!pb-12 !overflow-y-visible"
+          className="!overflow-y-visible"
         >
           {data.map((item, i) => (
             <ImageListItem key={i}>
