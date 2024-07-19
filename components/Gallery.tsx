@@ -28,6 +28,7 @@ const style = {
   p: 4,
   minHeight: "90vh",
   minWidth: "90vw",
+  outline: "none",
 };
 
 export default function Gallery(props: Gallery) {
@@ -101,12 +102,15 @@ export default function Gallery(props: Gallery) {
         >
           {data.map((item, i) => (
             <ImageListItem key={i}>
-              <button onClick={() => handleOpen(i)}>
+              <button
+                onClick={() => handleOpen(i)}
+                className="focus:outline-0 hover:scale-105 focus:scale-105 transform transition-transform shadow-[rgba(0,_0,_0,_0.3)_-5px_12px_5px_-3px]"
+              >
                 <img
                   src={`${item?.imageUrl}?w=400&fit=crop&auto=format`}
                   alt={item?.imageName}
                   loading="lazy"
-                  className="cursor-pointer hover:scale-105 focus:scale-105 transform transition-transform shadow-[rgba(0,_0,_0,_0.3)_-5px_12px_5px_-3px]"
+                  className=""
                 />
               </button>
             </ImageListItem>

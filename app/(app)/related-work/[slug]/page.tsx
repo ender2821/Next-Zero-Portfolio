@@ -22,19 +22,19 @@ const RelatedWorkQuery = groq`
   *[_type == "relatedWork" && slug.current == $slug][0]{
     heroTitle,
     heroSubtitle,
-    content
+    content,
+    files[]->{
+      "fileUrl": fileUpload.asset->url,
+      name
+    },
+    videos[]{
+      videoLink,
+      title
+    }
   }
 `;
 
 export default async function RelatedWorkPage({ params: { slug } }: Props) {
-  const galleryData = await client.fetch<Gallery>(
-    relatedWorkGalleryQuery,
-    { slug },
-    {
-      next: { revalidate: revalidate },
-    }
-  );
-
   const relatedWorkData = await client.fetch<SecondaryPageData>(
     RelatedWorkQuery,
     { slug },
@@ -47,8 +47,9 @@ export default async function RelatedWorkPage({ params: { slug } }: Props) {
     <>
       <Header />
       <SecondaryPageTemplate
-        galleryData={galleryData}
         pageData={relatedWorkData}
+        galleryQuery={relatedWorkGalleryQuery}
+        slug={slug}
       />
     </>
   );

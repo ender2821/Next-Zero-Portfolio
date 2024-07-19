@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Noto_Serif_Display } from "next/font/google";
 import { PortableText } from "next-sanity";
 import Flower from "../public/flower.svg";
@@ -7,6 +7,8 @@ import dynamic from "next/dynamic";
 import Divider from "./Divider";
 import Link from "next/link";
 import VideoPlayer from "./VideoPlayer";
+import LoadingSpinner from "./LoadingSpinner";
+import GalleryData from "./GalleryData";
 const GallerySecondary = dynamic(
   () => import("@/components/GallerySecondary"),
   {
@@ -18,12 +20,14 @@ const notoSerifDisplay = Noto_Serif_Display({ subsets: ["latin"] });
 
 type Props = {
   pageData: SecondaryPageData;
-  galleryData: Gallery;
+  galleryQuery: string;
+  slug: string;
 };
 
 export default async function SecondaryPageTemplate({
   pageData,
-  galleryData,
+  galleryQuery,
+  slug,
 }: Props) {
   return (
     <main className="min-h-screen flex-col pl-24 pt-20 pr-24 pb-24 grid grid-cols-3 gap-4">
@@ -63,8 +67,10 @@ export default async function SecondaryPageTemplate({
           <Flower className="text-[#2B2D3B] w-[60%] h-[60%]" />
         </div>
       </section>
-      <section className="col-span-2">
-        {galleryData && <GallerySecondary data={galleryData?.gallery} />}
+      <section className="col-span-2 relative">
+        <Suspense fallback={<LoadingSpinner />}>
+          <GalleryData query={galleryQuery} slug={slug} />
+        </Suspense>
       </section>
     </main>
   );

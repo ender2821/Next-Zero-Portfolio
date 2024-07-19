@@ -37,14 +37,6 @@ const undergradCourseWorkQuery = groq`
 export default async function UndergradCourseWorkPage({
   params: { slug },
 }: Props) {
-  const galleryData = await client.fetch<Gallery>(
-    undergradCourseWorkGalleryQuery,
-    { slug },
-    {
-      next: { revalidate: revalidate },
-    }
-  );
-
   const undergradCourseWorkData = await client.fetch<SecondaryPageData>(
     undergradCourseWorkQuery,
     { slug },
@@ -57,8 +49,9 @@ export default async function UndergradCourseWorkPage({
     <>
       <Header />
       <SecondaryPageTemplate
-        galleryData={galleryData}
         pageData={undergradCourseWorkData}
+        galleryQuery={undergradCourseWorkGalleryQuery}
+        slug={slug}
       />
     </>
   );

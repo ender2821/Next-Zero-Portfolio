@@ -22,21 +22,21 @@ const costumeConstructionQuery = groq`
   *[_type == "costumeConstruction" && slug.current == $slug][0]{
     heroTitle,
     heroSubtitle,
-    content
+    content,
+    files[]->{
+      "fileUrl": fileUpload.asset->url,
+      name
+    },
+    videos[]{
+      videoLink,
+      title
+    }
   }
 `;
 
 export default async function CostumeConstructionPage({
   params: { slug },
 }: Props) {
-  const galleryData = await client.fetch<Gallery>(
-    costumeConstructionGalleryQuery,
-    { slug },
-    {
-      next: { revalidate: revalidate },
-    }
-  );
-
   const costumeConstructionData = await client.fetch<SecondaryPageData>(
     costumeConstructionQuery,
     { slug },
@@ -49,8 +49,9 @@ export default async function CostumeConstructionPage({
     <>
       <Header />
       <SecondaryPageTemplate
-        galleryData={galleryData}
         pageData={costumeConstructionData}
+        galleryQuery={costumeConstructionGalleryQuery}
+        slug={slug}
       />
     </>
   );
