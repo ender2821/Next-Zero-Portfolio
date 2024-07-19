@@ -7,6 +7,9 @@ import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 
 const notoSerifDisplay = Noto_Serif_Display({ subsets: ["latin"] });
+const GalleryHome = dynamic(() => import("@/components/GalleryHome"), {
+  ssr: false,
+});
 
 const homeQuery = groq`
 *[_type == "home"][0]{
@@ -47,19 +50,21 @@ type Gallery = {
 export default async function Home() {
   const revalidate = 60;
 
-  const homeData = (await client.fetch(homeQuery, {
-    // @ts-ignore
-    next: { revalidate: revalidate },
-  })) as Home;
+  const homeData = await client.fetch<Home>(
+    homeQuery,
+    {},
+    {
+      next: { revalidate: revalidate },
+    }
+  );
 
-  const galleryData = (await client.fetch(homeGalleryQuery, {
-    // @ts-ignore
-    next: { revalidate: revalidate },
-  })) as Gallery;
-
-  const HomeGallery = dynamic(() => import("@/components/GalleryHome"), {
-    ssr: false,
-  });
+  const galleryData = await client.fetch<Gallery>(
+    homeGalleryQuery,
+    {},
+    {
+      next: { revalidate: revalidate },
+    }
+  );
 
   const frame = {
     border: "1rem solid #27D5E8",
@@ -72,7 +77,7 @@ export default async function Home() {
       <Header />
       <main className="min-h-screen flex-col items-center pl-24 pt-20 pr-24 pb-24">
         <section className="grid grid-cols-3">
-          <div className="bg-black/20 backdrop-blur-sm pl-12 pt-8 pr-8 pb-8 col-span-2">
+          <div className="bg-black/20 backdrop-blur-sm pl-12 pt-8 pr-8 pb-8 col-span-2 min-h-[800px] relative">
             <div className="max-w-[600px]">
               <h1
                 className={`${notoSerifDisplay.className} text-6xl font-bold`}
@@ -99,7 +104,7 @@ export default async function Home() {
           </div>
         </section>
         <section className="mt-8">
-          {galleryData && <HomeGallery data={galleryData?.gallery} />}
+          {galleryData && <GalleryHome data={galleryData?.gallery} />}
         </section>
       </main>
     </>

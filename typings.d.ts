@@ -20,3 +20,9 @@ type Gallery = {
     },
   ];
 };
+
+type SecondaryPageData = {
+  heroTitle: string;
+  heroSubtitle?: string;
+  content: Block[];
+};
