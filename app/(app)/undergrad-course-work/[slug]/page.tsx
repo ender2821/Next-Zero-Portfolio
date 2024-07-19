@@ -22,7 +22,15 @@ const undergradCourseWorkQuery = groq`
   *[_type == "underGradCourseWork" && slug.current == $slug][0]{
     heroTitle,
     heroSubtitle,
-    content
+    content,
+    files[]->{
+      "fileUrl": fileUpload.asset->url,
+      name
+    },
+    videos[]{
+      videoLink,
+      title
+    }
   }
 `;
 

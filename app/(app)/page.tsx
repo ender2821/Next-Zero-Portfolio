@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Noto_Serif_Display } from "next/font/google";
 import dynamic from "next/dynamic";
 import Header from "@/components/Header";
+import Divider from "@/components/Divider";
 
 const notoSerifDisplay = Noto_Serif_Display({ subsets: ["latin"] });
 const GalleryHome = dynamic(() => import("@/components/GalleryHome"), {
@@ -87,6 +88,7 @@ export default async function Home() {
               <h2 className="text-2xl font-semibold">
                 {homeData?.heroSubtitle}
               </h2>
+              <Divider />
               {homeData?.content && <PortableText value={homeData?.content} />}
             </div>
           </div>

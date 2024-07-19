@@ -25,4 +25,16 @@ type SecondaryPageData = {
   heroTitle: string;
   heroSubtitle?: string;
   content: Block[];
+  files: [
+    {
+      fileUrl: string;
+      name: string;
+    },
+  ];
+  videos: [
+    {
+      videoLink: string;
+      title: string;
+    },
+  ];
 };
