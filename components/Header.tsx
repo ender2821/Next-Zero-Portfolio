@@ -3,7 +3,7 @@ import Nav from "./Nav";
 
 const Header: React.FC = () => {
   return (
-    <header>
+    <header className="peer">
       <Nav />
     </header>
   );

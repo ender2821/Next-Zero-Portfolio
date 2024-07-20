@@ -1,5 +1,11 @@
 import { client, revalidate } from "@/sanity/lib/client";
-import GallerySecondary from "./GallerySecondary";
+import dynamic from "next/dynamic";
+const GallerySecondary = dynamic(
+  () => import("@/components/GallerySecondary"),
+  {
+    ssr: false,
+  }
+);
 
 export default async function GalleryData({
   query,

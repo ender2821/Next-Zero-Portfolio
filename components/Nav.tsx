@@ -1,30 +1,21 @@
-import { client } from "@/sanity/lib/client";
+import { client, revalidate } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import Link from "next/link";
 import React from "react";
 
-export const dynamic = "force-dynamic";
+const query = (query: string) => {
+  return groq`
+  *[_type == "${query}"]|order(orderRank){
+    name,
+    slug
+  }
+  `;
+};
 
-const costumeConstructionQuery = groq`
-*[_type == "costumeConstruction"]|order(orderRank){
-  name,
-  slug
-}
-`;
-
-const underGradCouresWorkQuery = groq`
-*[_type == "underGradCourseWork"]|order(orderRank){
-  name,
-  slug
-}
-`;
-
-const relatedWorkQuery = groq`
-*[_type == "relatedWork"]|order(orderRank){
-  name,
-  slug
-}
-`;
+const firstHandQuery = query("firstHand");
+const costumeConstructionQuery = query("costumeConstruction");
+const underGradCouresWorkQuery = query("underGradCourseWork");
+const relatedWorkQuery = query("relatedWork");
 
 type NavItem = {
   name: string;
@@ -33,94 +24,84 @@ type NavItem = {
   };
 };
 
+const dataFetch = async (query: string) => {
+  return await client.fetch<NavItem[]>(
+    query,
+    {},
+    { next: { revalidate: revalidate } }
+  );
+};
+
 export default async function Nav() {
-  const revalidate = 60;
-  const costumeConstructiodData = (await client.fetch(
-    costumeConstructionQuery,
-    {
-      // @ts-ignore
-      next: { revalidate: revalidate },
-    }
-  )) as NavItem[];
+  const firstHandQueryData = await dataFetch(firstHandQuery);
+  const costumeConstructiodData = await dataFetch(costumeConstructionQuery);
+  const underGradCourseWorkData = await dataFetch(underGradCouresWorkQuery);
+  const relatedWorkData = await dataFetch(relatedWorkQuery);
 
-  const underGradCourseWorkData = (await client.fetch(
-    underGradCouresWorkQuery,
-    {
-      // @ts-ignore
-      next: { revalidate: revalidate },
-    }
-  )) as NavItem[];
-
-  const relatedWorkData = (await client.fetch(relatedWorkQuery, {
-    // @ts-ignore
-    next: { revalidate: revalidate },
-  })) as NavItem[];
+  const navRenderer = (data: NavItem[], category: string, url: string) => {
+    return (
+      <li className="lg:[&>ul]:hover:opacity-100 lg:[&>ul]:hover:left-0 relative">
+        <p
+          tabIndex={0}
+          className="peer pt-4 pr-8 pb-4 pl-8 block mb-0 text-[#5f6368] lg:text-[#fff]"
+        >
+          {category}
+        </p>
+        <ul className="lg:peer-focus:opacity-100 lg:peer-focus:left-0 lg:focus-within:opacity-100 lg:focus-within:left-0 lg:opacity-0 lg:absolute lg:top-full lg:-left-[9999px] lg:backdrop-blur-xl lg:bg-black/60">
+          {data.map((item: NavItem, i: number) => (
+            <li key={item?.name + i} className="lg:[&>a]:last:pb-6">
+              <Link
+                href={`/${url}/${item?.slug?.current}`}
+                className="pt-2 pr-8 pb-2 pl-8 block"
+              >
+                {item?.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </li>
+    );
+  };
 
   return (
-    <nav className="w-full absolute left-0 top-0 pl-24 pr-24 bg-black/60 z-10">
-      <ul className="flex">
-        <li>
-          <Link href="/" className="pt-4 pr-8 pb-4 pl-8 block">
-            Home
-          </Link>
-        </li>
-        <li className="[&>ul]:hover:opacity-100 [&>ul]:hover:left-0 relative">
-          <p tabIndex={0} className="peer pt-4 pr-8 pb-4 pl-8 block mb-0">
-            Costume Construction
-          </p>
-          <ul className="peer-focus:opacity-100 peer-focus:left-0 focus-within:opacity-100 focus-within:left-0 opacity-0 absolute top-full -left-[9999px] backdrop-blur-xl bg-black/60">
-            {costumeConstructiodData.map((item: NavItem, i: number) => (
-              <li key={item?.name + i} className="[&>a]:last:pb-6">
-                <Link
-                  href={`/costume-construction/${item?.slug?.current}`}
-                  className="pt-2 pr-8 pb-2 pl-8 block"
-                >
-                  {item?.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </li>
-        <li className="[&>ul]:hover:opacity-100 [&>ul]:hover:left-0 relative">
-          <p tabIndex={0} className="peer pt-4 pr-8 pb-4 pl-8 block mb-0">
-            Undergrad Course Work
-          </p>
-          <ul className="peer-focus:opacity-100 peer-focus:left-0 focus-within:opacity-100 focus-within:left-0 opacity-0 absolute top-full -left-[9999px] backdrop-blur-xl bg-black/60">
-            {underGradCourseWorkData.map((item: NavItem, i: number) => (
-              <li key={item?.name + i} className="[&>a]:last:pb-6">
-                <Link
-                  href={`/undergrad-course-work/${item?.slug?.current}`}
-                  className="pt-2 pr-8 pb-2 pl-8 block"
-                >
-                  {item?.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </li>
-        <li className="[&>ul]:hover:opacity-100 [&>ul]:hover:left-0 relative">
-          <p tabIndex={0} className="peer pt-4 pr-8 pb-4 pl-8 block mb-0">
-            Related Work
-          </p>
-          <ul className="peer-focus:opacity-100 peer-focus:left-0 focus-within:opacity-100 focus-within:left-0 opacity-0 absolute top-full -left-[9999px] backdrop-blur-xl bg-black/60">
-            {relatedWorkData.map((item: NavItem, i: number) => (
-              <li key={item?.name + i} className="[&>a]:last:pb-6">
-                <Link
-                  href={`/related-work/${item?.slug?.current}`}
-                  className="pt-2 pr-8 pb-2 pl-8 block"
-                >
-                  {item?.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </li>
-        <li>
-          <Link href="/contact" className="pt-4 pr-8 pb-4 pl-8 block">
-            Contact
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <>
+      <input
+        type="checkbox"
+        id="drawer-toggle"
+        name="drawer-toggle"
+        className="peer absolute opacity-0"
+      />
+      <label
+        htmlFor="drawer-toggle"
+        id="drawer-toggle-label"
+        className="bg-red-50 w-8 h-8 lgMax:peer-[:checked]:left-[80vw] block left-0 absolute z-20 lg:hidden"
+      ></label>
+      <nav className="w-[80vw] lg:w-full absolute lg:left-0 -left-[80vw] lg:top-0 smDesktop:pl-24 smDesktop:pr-24 bg-black/60 lgMax:backdrop-blur-xl z-20 lgMax:peer-[:checked]:left-0">
+        <ul className="lg:flex">
+          <li>
+            <Link href="/" className="pt-4 pr-8 pb-4 pl-8 block">
+              Home
+            </Link>
+          </li>
+          {navRenderer(firstHandQueryData, "First Hand", "first-hand")}
+          {navRenderer(
+            costumeConstructiodData,
+            "Costume Construction",
+            "costume-construction"
+          )}
+          {navRenderer(
+            underGradCourseWorkData,
+            "Undergrad Course Work",
+            "undergrad-course-work"
+          )}
+          {navRenderer(relatedWorkData, "Related Work", "related-work")}
+          <li>
+            <Link href="/contact" className="pt-4 pr-8 pb-4 pl-8 block">
+              Contact
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </>
   );
 }

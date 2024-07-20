@@ -13,6 +13,12 @@ export const myStructure = (S: StructureBuilder, context: ConfigContext) =>
           S.document().schemaType("home").title("Home Page").documentId("home")
         ),
       orderableDocumentListDeskItem({
+        type: "firstHand",
+        S,
+        context,
+        title: "First Hand Pages",
+      }),
+      orderableDocumentListDeskItem({
         type: "costumeConstruction",
         S,
         context,

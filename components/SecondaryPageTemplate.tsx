@@ -3,18 +3,11 @@ import { Noto_Serif_Display } from "next/font/google";
 import { PortableText } from "next-sanity";
 import Flower from "../public/flower.svg";
 import File from "../public/file.svg";
-import dynamic from "next/dynamic";
 import Divider from "./Divider";
 import Link from "next/link";
 import VideoPlayer from "./VideoPlayer";
 import LoadingSpinner from "./LoadingSpinner";
 import GalleryData from "./GalleryData";
-const GallerySecondary = dynamic(
-  () => import("@/components/GallerySecondary"),
-  {
-    ssr: false,
-  }
-);
 
 const notoSerifDisplay = Noto_Serif_Display({ subsets: ["latin"] });
 
