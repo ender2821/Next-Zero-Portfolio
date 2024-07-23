@@ -23,8 +23,8 @@ export default async function SecondaryPageTemplate({
   slug,
 }: Props) {
   return (
-    <main className="min-h-screen flex-col pl-24 pt-20 pr-24 pb-24 grid grid-cols-3 gap-4">
-      <section className="bg-black/20 backdrop-blur-sm pl-8 pt-8 pr-8 pb-8 relative">
+    <main className="min-h-screen flex-col md:pl-24 md:pt-24 md:pr-24 pb-24 grid grid-cols-1 smDesktop:grid-cols-3 lg:grid-cols-2 gap-y-4 md:gap-4 lgMax:peer-has-[:checked]:fixed">
+      <section className="bg-black/20 backdrop-blur-sm pl-8 pt-8 pr-8 pb-8 relative flex justify-center overflow-hidden">
         <div className="max-w-[600px] z-10 relative">
           <h1 className={`${notoSerifDisplay.className} text-6xl font-bold`}>
             {pageData?.heroTitle}
@@ -60,7 +60,7 @@ export default async function SecondaryPageTemplate({
           <Flower className="text-[#2B2D3B] w-[60%] h-[60%]" />
         </div>
       </section>
-      <section className="col-span-2 relative">
+      <section className="smDesktop:col-span-2 relative">
         <Suspense fallback={<LoadingSpinner />}>
           <GalleryData query={galleryQuery} slug={slug} />
         </Suspense>

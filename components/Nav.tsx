@@ -2,6 +2,8 @@ import { client, revalidate } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import Link from "next/link";
 import React from "react";
+import Menu from "@/public/menu.svg";
+import Close from "@/public/close.svg";
 
 const query = (query: string) => {
   return groq`
@@ -43,7 +45,7 @@ export default async function Nav() {
       <li className="lg:[&>ul]:hover:opacity-100 lg:[&>ul]:hover:left-0 relative">
         <p
           tabIndex={0}
-          className="peer pt-4 pr-8 pb-4 pl-8 block mb-0 text-[#5f6368] lg:text-[#fff]"
+          className="peer pt-4 pr-7 pb-4 pl-7 block mb-0 text-[#5f6368] lg:text-[#fff]"
         >
           {category}
         </p>
@@ -52,7 +54,7 @@ export default async function Nav() {
             <li key={item?.name + i} className="lg:[&>a]:last:pb-6">
               <Link
                 href={`/${url}/${item?.slug?.current}`}
-                className="pt-2 pr-8 pb-2 pl-8 block"
+                className="pt-2 pr-7 pb-2 pl-7 block"
               >
                 {item?.name}
               </Link>
@@ -74,13 +76,27 @@ export default async function Nav() {
       <label
         htmlFor="drawer-toggle"
         id="drawer-toggle-label"
-        className="bg-red-50 w-8 h-8 lgMax:peer-[:checked]:left-[80vw] block left-0 absolute z-20 lg:hidden"
-      ></label>
-      <nav className="w-[80vw] lg:w-full absolute lg:left-0 -left-[80vw] lg:top-0 smDesktop:pl-24 smDesktop:pr-24 bg-black/60 lgMax:backdrop-blur-xl z-20 lgMax:peer-[:checked]:left-0">
+        className="w-16 h-16 lgMax:peer-[:checked]:hidden lock left-0 absolute z-30 lg:hidden cursor-pointer flex items-center justify-center"
+      >
+        <Menu className="w-[50%] h-[50%]" />
+      </label>
+      <label
+        htmlFor="drawer-toggle"
+        id="drawer-toggle-label"
+        className="w-16 h-16 lgMax:peer-[:checked]:flex hidden right-0 absolute z-30 lg:hidden cursor-pointer items-center justify-center"
+      >
+        <Close className="w-[50%] h-[50%]" />
+      </label>
+      <nav className="w-[100vw] lg:w-full absolute lg:left-0 -left-[100vw] lg:top-0 smDesktop:pl-24 smDesktop:pr-24 bg-black/60 lgMax:backdrop-blur-xl z-20 lgMax:peer-[:checked]:left-0">
         <ul className="lg:flex">
           <li>
             <Link href="/" className="pt-4 pr-8 pb-4 pl-8 block">
               Home
+            </Link>
+          </li>
+          <li>
+            <Link href="/contact" className="pt-4 pr-8 pb-4 pl-8 block">
+              Contact
             </Link>
           </li>
           {navRenderer(firstHandQueryData, "First Hand", "first-hand")}
@@ -95,11 +111,6 @@ export default async function Nav() {
             "undergrad-course-work"
           )}
           {navRenderer(relatedWorkData, "Related Work", "related-work")}
-          <li>
-            <Link href="/contact" className="pt-4 pr-8 pb-4 pl-8 block">
-              Contact
-            </Link>
-          </li>
         </ul>
       </nav>
     </>

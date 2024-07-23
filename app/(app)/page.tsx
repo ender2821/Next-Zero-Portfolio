@@ -69,9 +69,9 @@ export default async function Home() {
   return (
     <>
       <Header />
-      <main className="min-h-screen flex-col items-center p-4 lg:pl-24 lg:pt-20 lg:pr-24 lg:pb-24 lgMax:peer-has-[:checked]:fixed">
+      <main className="min-h-screen flex-col items-center md:pl-24 pb-24 md:pt-24 md:pr-24 lgMax:peer-has-[:checked]:fixed">
         <section className="grid grid-cols-1 md:grid-cols-3">
-          <div className="bg-black/20 backdrop-blur-sm md:pl-12 p-8 md:col-span-2 min-h-[800px] relative">
+          <div className="bg-black/20 backdrop-blur-sm md:pl-8 p-8 md:col-span-2 min-h-[800px] relative flex justify-center">
             <div className="max-w-[600px]">
               <h1
                 className={`${notoSerifDisplay.className} text-6xl font-bold`}
@@ -85,13 +85,13 @@ export default async function Home() {
               {homeData?.content && <PortableText value={homeData?.content} />}
             </div>
           </div>
-          <div className="bg-black/20 backdrop-blur-sm p-8 2xl:pt-0 2xl:pr-0 2xl:backdrop-blur-0 2xl:bg-transparent 2xl:pl-0">
+          <div className="bg-black/20 backdrop-blur-sm p-8 2xl:pt-0 2xl:pr-0 2xl:backdrop-blur-0 2xl:bg-transparent 2xl:pl-0 flex md:block justify-center">
             <Suspense fallback={<LoadingSpinner />}>
               <HomeImage />
             </Suspense>
           </div>
         </section>
-        <section className="mt-8">
+        <section className="mt-4">
           {galleryData && <GalleryHome data={galleryData?.gallery} />}
         </section>
       </main>

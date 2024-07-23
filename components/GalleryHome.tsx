@@ -14,6 +14,16 @@ type Data = {
 
 export default function GalleryHome(props: Data) {
   const isSmallScreen = useMediaQuery({ query: "(max-width: 1200px)" });
+  const isLargeDesktop = useMediaQuery({ query: "(min-width: 2256px)" });
 
-  return <Gallery data={props.data} columns={isSmallScreen ? 3 : 5} />;
+  let columns;
+  if (isSmallScreen) {
+    columns = 3;
+  } else if (isLargeDesktop) {
+    columns = 6;
+  } else {
+    columns = 5;
+  }
+
+  return <Gallery data={props.data} columns={columns} />;
 }

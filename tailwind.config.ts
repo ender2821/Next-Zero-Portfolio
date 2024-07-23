@@ -17,9 +17,9 @@ const config: Config = {
     screens: {
       lgMax: { max: "1023px" },
       lg: "1024px",
-      smDesktop: "1240px",
       "2xl": "1536px",
       md: "768px",
+      smDesktop: "1240px",
     },
   },
   plugins: [],

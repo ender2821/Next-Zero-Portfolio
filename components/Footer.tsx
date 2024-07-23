@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="lgMax:peer-has-[:checked]:fixed bottom text-center p-6 mt-6 bg-black/60">
+    <footer className="lgMax:peer-has-[:checked]:hidden text-center p-6 mt-6 bg-black/60">
       <p className="m-0">
         <Link href="mailto:bruening.r86@gmail.com" className="underline">
           bruening.r86@gmail.com
