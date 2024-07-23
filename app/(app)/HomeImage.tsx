@@ -1,4 +1,3 @@
-import urlFor from "@/app/utils/urlFor";
 import { client, revalidate } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import Image from "next/image";

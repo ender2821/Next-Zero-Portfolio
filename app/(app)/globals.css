@@ -64,6 +64,18 @@ p:empty {
   margin: 0;
 }
 
+.pageContent ul {
+  list-style: disc;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
+.pageContent ol {
+  list-style: decimal;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

@@ -1,4 +1,3 @@
-import styles from "./loadingSpinner.module.scss";
 import Flower from "../public/flower.svg";
 
 export default function LoadingSpinner() {
