@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const notoSans = Noto_Sans({ weight: "400", subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={notoSans.className}>
         {children}
         <Footer />
+        <GoogleAnalytics />
       </body>
     </html>
   );
