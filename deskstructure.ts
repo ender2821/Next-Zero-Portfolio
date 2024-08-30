@@ -2,7 +2,7 @@ import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 import { ConfigContext } from "sanity";
 import { StructureBuilder } from "sanity/structure";
 
-export const myStructure = (S: StructureBuilder, context: ConfigContext) =>
+const myStructure = (S: StructureBuilder, context: ConfigContext) =>
   S.list()
     .title("Site")
     .items([
@@ -49,3 +49,5 @@ export const myStructure = (S: StructureBuilder, context: ConfigContext) =>
       S.documentTypeListItem("imageAssets").title("Image Assets"),
       S.documentTypeListItem("fileAssets").title("File Assets"),
     ]);
+
+export default myStructure;
