@@ -93,3 +93,11 @@ p:empty {
   -webkit-backdrop-filter: var(--tw-backdrop-blur);
   backdrop-filter: var(--tw-backdrop-blur);
 }
+
+@media screen and (max-width: 1023px) {
+  .lgMax\:backdrop-blur-xl {
+    --tw-backdrop-blur: blur(4px);
+    -webkit-backdrop-filter: var(--tw-backdrop-blur);
+    backdrop-filter: var(--tw-backdrop-blur);
+  }
+}
