@@ -42,7 +42,7 @@ export default function Gallery(props: Gallery) {
   };
   const handleClose = () => setOpen(false);
 
-  const lastImage = data.length - 1;
+  const lastImage = data?.length - 1;
 
   return (
     <div>
@@ -63,7 +63,7 @@ export default function Gallery(props: Gallery) {
               <ArrowBackIcon className="w-5/6 h-5/6" />
             </button>
           ) : null}
-          {data.length > 0 && (
+          {data?.length > 0 && (
             <Image
               alt={data ? data[modalImage]?.imageName : ""}
               src={data ? data[modalImage]?.imageUrl : ""}
@@ -93,7 +93,7 @@ export default function Gallery(props: Gallery) {
           </button>
         </Box>
       </Modal>
-      {data.length > 0 && (
+      {data?.length > 0 && (
         <ImageList
           variant="masonry"
           cols={columns}
