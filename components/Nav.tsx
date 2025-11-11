@@ -105,11 +105,11 @@ export default async function Nav() {
             "Costume Construction",
             "costume-construction"
           )}
-          {navRenderer(
+          {/* {navRenderer(
             underGradCourseWorkData,
             "Undergrad Course Work",
             "undergrad-course-work"
-          )}
+          )} */}
           {navRenderer(relatedWorkData, "Related Work", "related-work")}
         </ul>
       </nav>

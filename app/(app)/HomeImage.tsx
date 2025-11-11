@@ -37,7 +37,8 @@ export default async function HomeImage() {
           alt={homeImageData?.imageName ? homeImageData?.imageName : ""}
           width={500}
           height={800}
-          className="relative 2xl:-left-[33%] 2xl:top-24 shadow-[rgba(0,_0,_0,_0.3)_-20px_60px_40px_-7px]"
+          // className="relative 2xl:-left-[33%] 2xl:top-24 shadow-[rgba(0,_0,_0,_0.3)_-20px_60px_40px_-7px]"
+          className="relative shadow-[rgba(0,_0,_0,_0.3)_-20px_60px_40px_-7px] w-full"
           style={frame}
         />
       )}
