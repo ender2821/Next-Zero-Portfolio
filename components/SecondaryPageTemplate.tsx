@@ -26,7 +26,7 @@ export default async function SecondaryPageTemplate({
     <main className="min-h-screen flex-col md:pl-24 md:pt-24 md:pr-24 pb-24 grid grid-cols-1 smDesktop:grid-cols-3 lg:grid-cols-2 gap-y-4 md:gap-4 lgMax:peer-has-[:checked]:fixed">
       <section className="bg-black/20 backdrop-blur-sm pl-8 pt-8 pr-8 pb-8 relative flex justify-center overflow-hidden pageContent">
         <div className="max-w-[600px] z-10 relative">
-          <h1 className={`${notoSerifDisplay.className} text-6xl font-bold`}>
+          <h1 className={`${notoSerifDisplay.className} text-4xl font-bold`}>
             {pageData?.heroTitle}
           </h1>
           <h2 className="text-2xl font-semibold">{pageData?.heroSubtitle}</h2>
